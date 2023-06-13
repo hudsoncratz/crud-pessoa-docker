@@ -38,6 +38,8 @@ COPY . .
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install
 
+RUN composer dump-autoload
+
 RUN chown -R www-data:www-data ./public ./storage ./bootstrap/cache && \
     chown -R 750 ./public ./storage ./bootstrap/cache
 
