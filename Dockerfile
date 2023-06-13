@@ -36,6 +36,10 @@ COPY . .
 
 # Instala o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Copia os arquivos do seu projeto para o diretório de trabalho
+COPY . .
+
 RUN composer install
 
 RUN composer dump-autoload
