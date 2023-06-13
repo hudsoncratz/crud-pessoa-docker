@@ -23,9 +23,6 @@ RUN install-php-extensions mysqli && \
 # Define o diretório de trabalho dentro do container
 WORKDIR /var/www/html
 
-# Copia os arquivos do seu projeto para o diretório de trabalho
-COPY . .
-
 # Instala as dependências do PHP necessárias para o Laravel
 #RUN apt-get update && \
 #    apt-get install -y --no-install-recommends \
@@ -41,8 +38,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 COPY . .
 
 RUN composer install
-
-RUN composer dump-autoload
 
 RUN chown -R www-data:www-data ./public ./storage ./bootstrap/cache && \
     chown -R 750 ./public ./storage ./bootstrap/cache
