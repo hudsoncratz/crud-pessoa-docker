@@ -38,6 +38,9 @@ COPY . .
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install
 
+RUN chown -R www-data:www-data ./public ./storage ./bootstrap/cache && \
+    chown -R 750 ./public ./storage ./bootstrap/cache
+
 # Define a porta em que o container irá expor o aplicativo Laravel
 EXPOSE 8000
 
