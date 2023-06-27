@@ -5,11 +5,13 @@ networks:
 
 services:
     app:
-        build: .
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
         ports:
-            - "8000:8000"
-        volumes:
-            - .:/var/www/html
+            - "80:80"
+        env_file:
+            - .env
         depends_on:
             - db
         networks:
@@ -22,8 +24,8 @@ services:
         tty: true
         ports:
             - "3306:3306"
-#        volumes:
-#            - dbdata:/var/lib/mysql
+        volumes:
+            - dbdata:/var/lib/mysql
         environment:
             MYSQL_DATABASE: crud-pessoa
             MYSQL_ROOT_PASSWORD: 123456

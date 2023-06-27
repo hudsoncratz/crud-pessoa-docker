@@ -39,6 +39,14 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer install
 
+
+#Arquivos de configuração
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY docker/php/conf.d/local.ini /usr/local/etc/php/conf.d/
+COPY docker/php-fpm.conf /usr/local/etc/
+COPY docker/php-fpm.d/www.conf /usr/local/etc/php-fpm.d/
+
+
 RUN chown -R www-data:www-data ./public ./storage ./bootstrap/cache && \
     chown -R 750 ./public ./storage ./bootstrap/cache
 
@@ -46,4 +54,6 @@ RUN chown -R www-data:www-data ./public ./storage ./bootstrap/cache && \
 EXPOSE 8000
 
 # Inicia o servidor web do PHP para o aplicativo Laravel
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+#CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+RUN chmod +x docker/entrypoint.sh
+ENTRYPOINT ["./docker/entrypoint.sh"]
